@@ -5,7 +5,6 @@
 #include <valarray>
 #include "World.hpp"
 
-
 namespace raycaster {
 
     World::World(const bool map[], int xSize, int ySize) {
@@ -25,35 +24,52 @@ namespace raycaster {
     }
 
     double World::RayTrace(Vector2 from, double angle) {
-        bool hitWall = false;
-        double rayDistance = 0;
-        double eyeX = cos(angle);
-        double eyeY = sin(angle);
+        bool hit = false;
 
-        // find out when the ray angle intersects
-        int testX, testY;
+        int mapX = (int)from.x;
+        int mapY = (int)from.y;
 
-        // Start the ray casting loop
-        while (!hitWall){
-            rayDistance += RAY_STEP * sqrt(eyeX*eyeX + eyeY*eyeY);
-            // create a plane of the player that the rays get casted out of
-            testX = (int)(RAY_STEP + eyeX*rayDistance);
-            testY = (int)(RAY_STEP + eyeY*rayDistance);
-            // We multiply by ry distance ot increase the distance that it has travelled
-            if (testX < 0 || testX > m_XSize || testY > m_YSize || testY < 0){
-                hitWall = true;
-                rayDistance = 20.0;
-            } else {
-                if (IsWall(testX, testY)){
-                    hitWall = true;
-                }
-            }
+        double dirX = cos(angle);
+        double dirY = sin(angle);
+
+        int stepX,stepY;
+        double deltaX = dirX == 0 ? 1e30 : std::abs(1/dirX);
+        double deltaY = dirY == 0 ? 1e30 : std::abs(1/dirY);
+        double sideDistX;
+        double sideDistY;
+
+        if(dirX < 0){
+            stepX = -1;
+            sideDistX = (from.x - mapX) * deltaX;
+        } else {
+            stepX = 1;
+            sideDistX = (mapX - from.x + 1.0) * deltaX;
         }
 
-        return rayDistance;
+        if(dirY < 0){
+            stepY = -1;
+            sideDistY = (from.y - mapY) * deltaY;
+        } else {
+            stepY = 1;
+            sideDistY = (mapY - from.y + 1.0) * deltaY;
+        }
+        int side = 0;
+        while(!hit){
+            if(sideDistX < sideDistY){
+                sideDistX += deltaX;
+                mapX += stepX;
+                side = 0;
+            } else {
+                sideDistY += deltaY;
+                mapY += stepY;
+                side = 1;
+            }
+            hit = IsWall(mapX,mapY);
+        }
+        if(side == 0){
+            return sideDistX - deltaX;
+        } else {
+            return sideDistY - deltaY;
+        }
     }
-
-
-
-
 } // raycaster
