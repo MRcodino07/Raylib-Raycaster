@@ -14,6 +14,10 @@ namespace raycaster {
     inline double deg2rad(double g) {
         return g * 2*PI / 360;
     }
+
+    inline Vector2 rotateVector(Vector2 &v, double angle){
+        return {(float)(v.x * cos(angle) - v.y * sin(angle)),(float)(v.x * sin(angle) + v.y * cos(angle))};
+    }
 }
 
 
