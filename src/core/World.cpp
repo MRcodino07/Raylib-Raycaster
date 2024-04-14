@@ -2,20 +2,26 @@
 // Created by marco on 17/03/2024.
 //
 
+#include <iostream>
 #include <valarray>
+#include <fstream>
+#include <string>
 #include "World.hpp"
+
 
 namespace raycaster {
 
-    World::World(const bool map[], int xSize, int ySize) {
-        m_Map = std::make_unique<bool[]>(xSize * ySize);
-        m_XSize = xSize;
-        m_YSize = ySize;
+    World::World(const std::string& filepath) {
+        freopen(filepath.c_str(), "r", stdin);
+        std::cin >> m_XSize;
+        std::cin >> m_YSize;
 
-        for (int i = 0; i < xSize * ySize; ++i) {
-            m_Map[i] = map[i];
+        m_Map = std::make_unique<bool[]>(m_XSize * m_YSize);
+
+        for (int i = 0; i < m_XSize * m_YSize; ++i) {
+            std::cin >> m_Map[i];
         }
-
+        fclose(stdin);
     }
 
     bool World::IsWall(int x, int y) {

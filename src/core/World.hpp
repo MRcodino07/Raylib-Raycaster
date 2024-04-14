@@ -12,7 +12,7 @@ namespace raycaster {
 
     class World {
     public:
-        World(const bool map[], int xSize, int ySize);
+        World(const std::string& filepath);
         double RayTrace(Vector2 from, double angle);
 
 

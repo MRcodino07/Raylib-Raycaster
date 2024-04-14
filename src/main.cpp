@@ -2,20 +2,6 @@
 #include "core/Common.hpp"
 #include "core/Renderer.hpp"
 
-
-
-const bool MAP[] = {
-        1, 1, 1, 1, 1, 1, 1, 1, 1,
-        0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 1, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0, 1, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 1, 1, 1, 1, 1, 1, 1, 0,
-
-        };
 const int XSIZE = 9, YSIZE = 9;
 
 int main(void)
@@ -31,7 +17,7 @@ int main(void)
     //--------------------------------------------------------------------------------------
 
     auto renderer = raycaster::Renderer(800);
-    auto world = raycaster::World(MAP, XSIZE, YSIZE);
+    auto world = raycaster::World("../res/maps/base.map");
     // Main game loop
     double angle = raycaster::deg2rad(0);
     while (!WindowShouldClose())    // Detect window close button or ESC key
@@ -39,7 +25,7 @@ int main(void)
 
         // Update
         //----------------------------------------------------------------------------------
-        renderer.CalculateWallVec(world, Vector2{4, 4}, angle);
+        renderer.CalculateWallVec(world, Vector2{4, 3}, angle);
         angle += raycaster::deg2rad(0.5);
         //----------------------------------------------------------------------------------
 
