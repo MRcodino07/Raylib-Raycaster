@@ -30,7 +30,7 @@ int main(void)
     //--------------------------------------------------------------------------------------
     auto screenCentre = GetWindowPosition();
     auto renderer = raycaster::Renderer(800);
-    auto world = raycaster::World(MAP, XSIZE, YSIZE);
+    auto world = raycaster::World("../res/maps/base.map");
     auto player = raycaster::Player(Vector2{5,5},0);
     HideCursor();
     // Main game loop
