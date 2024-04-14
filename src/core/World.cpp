@@ -17,7 +17,7 @@ namespace raycaster {
         std::cin >> m_XSize;
         std::cin >> m_YSize;
 
-        m_Map = std::make_unique<bool[]>(m_XSize * m_YSize);
+        m_Map = new bool[m_XSize * m_YSize];
 
         for (int i = 0; i < m_XSize * m_YSize; ++i) {
             std::cin >> m_Map[i];
