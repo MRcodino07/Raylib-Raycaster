@@ -6,6 +6,7 @@
 #define RAYLIB_TEMPLATE_PORTABLE_WINDOWS_COMMON_HPP
 
 #include "raylib.h"
+#include <cmath>
 namespace raycaster {
     inline double rad2deg(double x) {
         return x * 360 / (2 * PI);
