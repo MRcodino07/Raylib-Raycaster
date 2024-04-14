@@ -3,10 +3,7 @@
 //
 
 #include "Player.hpp"
-raycaster::Player::Player(const Vector2 &position, double direction) : position(position), direction(direction) {}
-
-raycaster::Player::Player() {}
-
+#include "Common.hpp"
 const Vector2 &raycaster::Player::getPosition() const {
     return position;
 }
@@ -24,3 +21,13 @@ void raycaster::Player::rotate(float angle) {
     }
 }
 
+raycaster::Player::Player(const Vector2 &position, double direction, const raycaster::World &gameMap) : position(
+        position), direction(direction), gameMap(gameMap) {}
+
+void raycaster::Player::move(Vector2 displacement) {
+    displacement = raycaster::rotateVector(displacement,direction);
+    Vector2 newPosition = {position.x + displacement.x,position.y+displacement.y};
+    if(!gameMap.IsWall((int)newPosition.x,(int)newPosition.y)){
+        position = newPosition;
+    }
+}
