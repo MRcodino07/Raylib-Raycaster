@@ -5,7 +5,7 @@ scolastico dell'anno 2024.
 
 ## In che cosa consiste?
 
-Il presente é un motore grafico che si basa sulla tecnica del DDA(Digital Differential Analyzer) per simulare un ambiente tridimensionale,
+Il presente é un motore grafico che si basa sulla tecnica del Raycasting per simulare un ambiente tridimensionale,
 ispirata a videogiochi dei primi anni '90 come Wolfenstein 3D.
 Il tutto é stato realizzato con il framework grafico [Raylib](https://github.com/raysan5/raylib).
 
