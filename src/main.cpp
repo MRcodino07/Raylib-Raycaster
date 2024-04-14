@@ -34,7 +34,6 @@ int main(void)
         BeginDrawing();
 
         renderer.DrawWallVec();
-        DrawText(std::to_string(raycaster::rad2deg(angle)).c_str(), 0, 0, 30, BLACK);
         ClearBackground(RAYWHITE);
 
         EndDrawing();

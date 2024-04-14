@@ -10,6 +10,7 @@ add_executable(raylib_template_portable_windows src/main.cpp
         src/core/World.cpp
         src/core/World.hpp
         src/core/Common.hpp
+        src/core/RayCollision.hpp
 
 )
 

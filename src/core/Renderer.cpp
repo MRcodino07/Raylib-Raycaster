@@ -11,7 +11,7 @@ namespace raycaster {
 
     Renderer::Renderer(int xRes) {
         m_XRes = xRes;
-        m_WallVec = std::make_unique<double[]>(m_XRes);
+        m_WallVec = std::make_unique<raycaster::RayCollision[]>(m_XRes);
     }
 
     void Renderer::CalculateWallVec(raycaster::World& world, Vector2 from, double angle) {\
@@ -28,9 +28,12 @@ namespace raycaster {
         for (int i = 0; i < m_XRes; i++) {
             int xPos = (GetScreenWidth() / m_XRes) * i;
             int width = (int) ((double)GetScreenWidth() / (double )m_XRes);
-            int height = (int) ((double )GetScreenHeight() * (1 / m_WallVec[i]));
+            int height = (int) ((double )GetScreenHeight() * (1 / m_WallVec[i].distance));
             int yPos = (GetScreenHeight() - height) / 2;
-            DrawRectangle( xPos,  yPos, width, height, GREEN);
+
+            unsigned char green = 255 - (int)((double)(m_WallVec[i].collisionAngle / PI)*255);
+            Color c{0, green, 0, 255};
+            DrawRectangle( xPos,  yPos, width, height, c);
         }
     }
 

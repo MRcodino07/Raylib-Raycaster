@@ -8,6 +8,7 @@
 #include <memory>
 #include "World.hpp"
 #include "Common.hpp"
+#include "RayCollision.hpp"
 
 namespace raycaster {
 
@@ -20,7 +21,7 @@ namespace raycaster {
     private:
         const double m_FOV = raycaster::deg2rad(90);
         int m_XRes;
-        std::unique_ptr<double[]> m_WallVec;
+        std::unique_ptr<raycaster::RayCollision[]> m_WallVec;
     };
 
 } // raycaster

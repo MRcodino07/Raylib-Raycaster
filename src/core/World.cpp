@@ -7,6 +7,7 @@
 #include <fstream>
 #include <string>
 #include "World.hpp"
+#include "Common.hpp"
 
 
 namespace raycaster {
@@ -29,7 +30,7 @@ namespace raycaster {
 
     }
 
-    double World::RayTrace(Vector2 from, double angle) {
+    raycaster::RayCollision World::RayTrace(Vector2 from, double angle) {
         bool hit = false;
 
         int mapX = (int)from.x;
@@ -44,20 +45,26 @@ namespace raycaster {
         double sideDistX;
         double sideDistY;
 
+        double xNormal, yNormal;
+
         if(dirX < 0){
             stepX = -1;
             sideDistX = (from.x - mapX) * deltaX;
+            xNormal = 0;
         } else {
             stepX = 1;
             sideDistX = (mapX - from.x + 1.0) * deltaX;
+            xNormal = deg2rad(180);
         }
 
         if(dirY < 0){
             stepY = -1;
             sideDistY = (from.y - mapY) * deltaY;
+            yNormal = deg2rad(270);
         } else {
             stepY = 1;
             sideDistY = (mapY - from.y + 1.0) * deltaY;
+            yNormal = deg2rad(90);
         }
         int side = 0;
         while(!hit){
@@ -72,10 +79,18 @@ namespace raycaster {
             }
             hit = IsWall(mapX,mapY);
         }
+
+        raycaster::RayCollision r;
+
         if(side == 0){
-            return sideDistX - deltaX;
+            r.distance = sideDistX - deltaX;
+            r.collisionAngle = atan2(cos(xNormal-angle), sin(xNormal-angle));
         } else {
-            return sideDistY - deltaY;
+            r.distance = sideDistY - deltaY;
+            r.collisionAngle = atan2(cos(yNormal-angle), sin(yNormal-angle));
         }
+
+
+        return r;
     }
 } // raycaster

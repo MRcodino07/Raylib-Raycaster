@@ -7,13 +7,14 @@
 
 #include <memory>
 #include <raylib.h>
+#include "RayCollision.hpp"
 
 namespace raycaster {
 
     class World {
     public:
         World(const std::string& filepath);
-        double RayTrace(Vector2 from, double angle);
+        raycaster::RayCollision RayTrace(Vector2 from, double angle);
 
 
     private:
