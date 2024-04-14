@@ -10,7 +10,8 @@ add_executable(raylib_template_portable_windows src/main.cpp
         src/core/World.cpp
         src/core/World.hpp
         src/core/Common.hpp
-
+        src/core/Player.cpp
+        src/core/Player.hpp
 )
 
 find_library(RAYLIBRARY raylib lib)
