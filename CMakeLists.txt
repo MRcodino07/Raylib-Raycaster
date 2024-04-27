@@ -1,10 +1,12 @@
 cmake_minimum_required(VERSION 3.21)
-project(raylib_template_portable_windows)
+project(raylib_raycaster)
 
 set(CMAKE_CXX_STANDARD 14)
+set(BUILD_EXAMPLES OFF)
 
-include_directories(include)
-add_executable(raylib_template_portable_windows src/main.cpp
+add_subdirectory(lib/raylib)
+
+add_executable(raylib_raycaster src/main.cpp
         src/core/Renderer.cpp
         src/core/Renderer.hpp
         src/core/World.cpp
@@ -14,6 +16,11 @@ add_executable(raylib_template_portable_windows src/main.cpp
         src/core/Player.hpp
 )
 
-find_library(RAYLIBRARY raylib lib)
+target_link_libraries(raylib_raycaster raylib)
 
-target_link_libraries(raylib_template_portable_windows LINK_PUBLIC ${RAYLIBRARY} winmm)
+# Librerie specifiche per MacOS
+if (APPLE)
+    target_link_libraries(${PROJECT_NAME} "-framework IOKit")
+    target_link_libraries(${PROJECT_NAME} "-framework Cocoa")
+    target_link_libraries(${PROJECT_NAME} "-framework OpenGL")
+endif()
