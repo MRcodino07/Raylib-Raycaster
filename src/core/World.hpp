@@ -15,7 +15,7 @@ namespace raycaster {
     public:
         World(const std::string& filepath);
         raycaster::RayCollision RayTrace(Vector2 from, double angle);
-        bool IsWall(int x, int y);
+        bool IsWall(int x, int y) const;
 
     private:
         int m_XSize, m_YSize;

@@ -26,7 +26,7 @@ namespace raycaster {
     }
 
 
-    bool World::IsWall(int x, int y) {
+    bool World::IsWall(int x, int y) const {
         return m_Map[y * m_XSize + x];
     }
 

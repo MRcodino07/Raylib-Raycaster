@@ -4,7 +4,7 @@ namespace raycaster {
     class Player {
         Vector2 position;
         double direction;
-        World gameMap;
+        const World& gameMap;
     public:
         Player(const Vector2 &position, double direction, const World &gameMap);
 
