@@ -25,13 +25,15 @@ namespace raycaster {
     }
 
     void Renderer::DrawWallVec() {
+        const double K = 255.0 / m_MAX_DIST;
         for (int i = 0; i < m_XRes; i++) {
             int xPos = (GetScreenWidth() / m_XRes) * i;
             int width = (int) ((double)GetScreenWidth() / (double )m_XRes);
             int height = (int) ((double )GetScreenHeight() * (1 / m_WallVec[i].distance));
             int yPos = (GetScreenHeight() - height) / 2;
 
-            unsigned char green = 255 - (int)((double)(m_WallVec[i].collisionAngle / PI)*255);
+            auto disp = (unsigned char)(std::min(m_MAX_DIST, m_WallVec[i].distance) * K);
+            unsigned char green = 255 - disp;
             Color c{0, green, 0, 255};
             DrawRectangle( xPos,  yPos, width, height, c);
         }

@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.21)
 project(raylib_raycaster)
 
-set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_CXX_STANDARD 20)
 set(BUILD_EXAMPLES OFF)
 
 add_subdirectory(lib/raylib)

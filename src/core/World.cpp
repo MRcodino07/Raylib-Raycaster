@@ -17,7 +17,7 @@ namespace raycaster {
         std::cin >> m_XSize;
         std::cin >> m_YSize;
 
-        m_Map = new bool[m_XSize * m_YSize];
+        m_Map = std::make_shared<bool[]>(m_XSize * m_YSize);
 
         for (int i = 0; i < m_XSize * m_YSize; ++i) {
             std::cin >> m_Map[i];
@@ -25,12 +25,17 @@ namespace raycaster {
         fclose(stdin);
     }
 
+
     bool World::IsWall(int x, int y) {
         return m_Map[y * m_XSize + x];
-
     }
 
     raycaster::RayCollision World::RayTrace(Vector2 from, double angle) {
+        if(angle < 0){
+            angle += deg2rad(360);
+        }
+
+
         bool hit = false;
 
         int mapX = (int)from.x;
@@ -45,26 +50,20 @@ namespace raycaster {
         double sideDistX;
         double sideDistY;
 
-        double xNormal, yNormal;
-
         if(dirX < 0){
             stepX = -1;
             sideDistX = (from.x - mapX) * deltaX;
-            xNormal = 0;
         } else {
             stepX = 1;
             sideDistX = (mapX - from.x + 1.0) * deltaX;
-            xNormal = deg2rad(180);
         }
 
         if(dirY < 0){
             stepY = -1;
             sideDistY = (from.y - mapY) * deltaY;
-            yNormal = deg2rad(270);
         } else {
             stepY = 1;
             sideDistY = (mapY - from.y + 1.0) * deltaY;
-            yNormal = deg2rad(90);
         }
         int side = 0;
         while(!hit){
@@ -81,13 +80,26 @@ namespace raycaster {
         }
 
         raycaster::RayCollision r;
+        double axis;
+        if(angle <= deg2rad(90)){
+            axis = deg2rad(90);
+        } else if (angle <= deg2rad(180)){
+            axis = deg2rad(180);
+        } else if(angle <= deg2rad(270)){
+            axis = deg2rad(270);
+        } else {
+            axis = deg2rad(360);
+        }
 
         if(side == 0){
+            r.collisionAngle = axis - angle;
+        } else {
+            r.collisionAngle = axis - deg2rad(90) - angle;
+        }
+        if(side == 0){
             r.distance = sideDistX - deltaX;
-            r.collisionAngle = atan2(cos(xNormal-angle), sin(xNormal-angle));
         } else {
             r.distance = sideDistY - deltaY;
-            r.collisionAngle = atan2(cos(yNormal-angle), sin(yNormal-angle));
         }
 
 

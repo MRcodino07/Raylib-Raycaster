@@ -19,7 +19,7 @@ namespace raycaster {
 
     private:
         int m_XSize, m_YSize;
-        bool* m_Map;
+        std::shared_ptr<bool[]> m_Map;
     };
 
 } // raycaster
