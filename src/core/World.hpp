@@ -14,12 +14,12 @@ namespace raycaster {
     class World {
     public:
         World(const std::string& filepath);
-        raycaster::RayCollision RayTrace(Vector2 from, double angle);
+        raycaster::RayCollision RayTrace(Vector2 from, double angle) const;
         bool IsWall(int x, int y) const;
 
     private:
         int m_XSize, m_YSize;
-        std::shared_ptr<bool[]> m_Map;
+        std::unique_ptr<bool[]> m_Map;
     };
 
 } // raycaster

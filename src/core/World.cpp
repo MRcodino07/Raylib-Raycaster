@@ -17,7 +17,7 @@ namespace raycaster {
         in >> m_XSize;
         in >> m_YSize;
 
-        m_Map = std::make_shared<bool[]>(m_XSize * m_YSize);
+        m_Map = std::make_unique<bool[]>(m_XSize * m_YSize);
 
         for (int i = 0; i < m_XSize * m_YSize; ++i) {
             in >> m_Map[i];
@@ -30,7 +30,7 @@ namespace raycaster {
         return m_Map[y * m_XSize + x];
     }
 
-    raycaster::RayCollision World::RayTrace(Vector2 from, double angle) {
+    raycaster::RayCollision World::RayTrace(Vector2 from, double angle) const {
         if(angle < 0){
             angle += deg2rad(360);
         }

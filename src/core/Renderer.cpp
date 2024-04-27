@@ -14,7 +14,7 @@ namespace raycaster {
         m_WallVec = std::make_unique<raycaster::RayCollision[]>(m_XRes);
     }
 
-    void Renderer::CalculateWallVec(raycaster::World& world, Vector2 from, double angle) {\
+    void Renderer::CalculateWallVec(const raycaster::World& world, Vector2 from, double angle) {\
         double currentAngle = angle - m_FOV/2;
         int i = 0;
         while (currentAngle < angle + m_FOV/2) {

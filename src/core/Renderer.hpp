@@ -16,7 +16,7 @@ namespace raycaster {
     public:
         Renderer(int xRes);
         void DrawWallVec();
-        void CalculateWallVec(raycaster::World& world, Vector2 from, double angle);
+        void CalculateWallVec(const raycaster::World& world, Vector2 from, double angle);
 
     private:
         const double m_FOV = raycaster::deg2rad(90);
