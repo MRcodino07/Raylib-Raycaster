@@ -13,16 +13,16 @@
 namespace raycaster {
 
     World::World(const std::string& filepath) {
-        freopen(filepath.c_str(), "r", stdin);
-        std::cin >> m_XSize;
-        std::cin >> m_YSize;
+        std::ifstream in(filepath);
+        in >> m_XSize;
+        in >> m_YSize;
 
         m_Map = std::make_shared<bool[]>(m_XSize * m_YSize);
 
         for (int i = 0; i < m_XSize * m_YSize; ++i) {
-            std::cin >> m_Map[i];
+            in >> m_Map[i];
         }
-        fclose(stdin);
+        in.close();
     }
 
 
