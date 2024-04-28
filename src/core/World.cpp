@@ -9,18 +9,35 @@
 #include "World.hpp"
 #include "Common.hpp"
 
+const bool base[16] {
+    1, 1, 1, 1,
+    1, 0, 0, 1,
+    1, 0, 0, 1,
+    1, 1, 1, 1,
+};
 
 namespace raycaster {
 
-    World::World(const std::string& filepath) {
+    World::World(const std::string& filepath) : m_XSize(4), m_YSize(4) {
         std::ifstream in(filepath);
-        in >> m_XSize;
-        in >> m_YSize;
 
-        m_Map = std::make_unique<bool[]>(m_XSize * m_YSize);
+        if(in) {
+            in >> m_XSize;
+            in >> m_YSize;
 
-        for (int i = 0; i < m_XSize * m_YSize; ++i) {
-            in >> m_Map[i];
+            m_Map = std::make_unique<bool[]>(m_XSize * m_YSize);
+
+            for (int i = 0; i < m_XSize * m_YSize; ++i) {
+                in >> m_Map[i];
+            }
+        } else {
+            std::cout << "ERRORE: nessun file " << filepath << " trovato! Caricamento di una mappa base..." << std::endl;
+
+            m_Map = std::make_unique<bool[]>(m_XSize * m_YSize);
+
+            for (int i = 0; i < m_XSize * m_YSize; ++i) {
+                base[i] >> m_Map[i];
+            }
         }
         in.close();
     }
