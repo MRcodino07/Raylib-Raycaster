@@ -14,15 +14,14 @@ namespace raycaster {
 
     class Renderer {
     public:
-        Renderer(int xRes);
         void DrawWallVec();
         void CalculateWallVec(const raycaster::World& world, Vector2 from, double angle);
 
     private:
         const double m_FOV = raycaster::deg2rad(90);
         const double m_MAX_DIST = 10;
-        int m_XRes;
-        std::unique_ptr<raycaster::RayCollision[]> m_WallVec;
+        static const int m_XRES = 800;
+        raycaster::RayCollision m_WallVec[m_XRES];
     };
 
 } // raycaster

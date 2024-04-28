@@ -16,10 +16,12 @@ int main(void)
     SetTargetFPS(60);               // Set our game to run at 60 frames-per-second
     //--------------------------------------------------------------------------------------
     auto screenCentre = GetWindowPosition();
-    auto renderer = raycaster::Renderer(800);
+    auto renderer = raycaster::Renderer();
     auto world = raycaster::World("../res/maps/base.map");
     auto player = raycaster::Player(Vector2{5,5},0,world);
-    HideCursor();
+
+    DisableCursor();
+
     // Main game loop
     while (!WindowShouldClose())    // Detect window close button or ESC key
     {
@@ -54,6 +56,7 @@ int main(void)
 
         renderer.DrawWallVec();
         ClearBackground(RAYWHITE);
+        DrawText(std::to_string(1/GetFrameTime()).c_str(), 0, 0, 5, RED);
 
         EndDrawing();
         //----------------------------------------------------------------------------------

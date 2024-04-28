@@ -25,7 +25,7 @@ namespace raycaster {
             in >> m_XSize;
             in >> m_YSize;
 
-            m_Map = std::make_unique<bool[]>(m_XSize * m_YSize);
+            m_Map = std::make_shared<bool[]>(m_XSize * m_YSize);
 
             for (int i = 0; i < m_XSize * m_YSize; ++i) {
                 in >> m_Map[i];
@@ -33,7 +33,7 @@ namespace raycaster {
         } else {
             std::cout << "ERRORE: nessun file " << filepath << " trovato! Caricamento di una mappa base..." << std::endl;
 
-            m_Map = std::make_unique<bool[]>(m_XSize * m_YSize);
+            m_Map = std::make_shared<bool[]>(m_XSize * m_YSize);
 
             for (int i = 0; i < m_XSize * m_YSize; ++i) {
                 base[i] >> m_Map[i];
