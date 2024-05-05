@@ -3,18 +3,16 @@
 //
 
 #include "Renderer.hpp"
-#include <raylib.h>
+#include "raylib.h"
 #include <iostream>
 
 namespace raycaster {
 
     void Renderer::CalculateWallVec(const raycaster::World& world, Vector2 from, double angle) {\
         double currentAngle = angle - m_FOV/2;
-        int i = 0;
-        while (currentAngle < angle + m_FOV/2) {
-            m_WallVec[i] = world.RayTrace(from, currentAngle);
-            currentAngle += m_FOV/m_XRES;
-            i++;
+        for (auto& wall : m_WallVec) {
+            wall = world.RayTrace(from, currentAngle);
+            currentAngle += m_DELTA;
         }
     }
 

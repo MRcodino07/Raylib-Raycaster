@@ -25,25 +25,11 @@ int main(void)
     // Main game loop
     while (!WindowShouldClose())    // Detect window close button or ESC key
     {
-
         // Update
         //----------------------------------------------------------------------------------
         if(IsWindowFocused()) {
             player.rotate((float )raycaster::deg2rad((float)GetMouseX()-screenCentre.x) / 2);
-            if(IsKeyDown(KEY_W)){
-                player.move({step,0});
-
-            }
-            if(IsKeyDown(KEY_A)){
-                player.move({0,-step});
-
-            }
-            if(IsKeyDown(KEY_S)){
-                player.move({-step,0});
-            }
-            if(IsKeyDown(KEY_D)){
-                player.move({0,step});
-            }
+            player.actionByKeyCode();
         }
         renderer.CalculateWallVec(world, player.getPosition(), player.getDirection());
         SetMousePosition((int)screenCentre.x,(int)screenCentre.y);

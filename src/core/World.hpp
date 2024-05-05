@@ -6,7 +6,7 @@
 #define RAYLIB_TEMPLATE_PORTABLE_WINDOWS_WORLD_HPP
 
 #include <memory>
-#include <raylib.h>
+#include "raylib.h"
 #include "RayCollision.hpp"
 
 namespace raycaster {
