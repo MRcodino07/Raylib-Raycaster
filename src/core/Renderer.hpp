@@ -20,7 +20,7 @@ namespace raycaster {
     private:
         const double m_FOV = raycaster::deg2rad(90);
         const double m_MAX_DIST = 10;
-        static const int m_XRES = 5;
+        static const int m_XRES = 100;
         const double m_DELTA = m_FOV/m_XRES;
         raycaster::RayCollision m_WallVec[m_XRES];
     };
